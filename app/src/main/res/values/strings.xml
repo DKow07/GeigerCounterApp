@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Geiger</string>
+    <string name="last_measurement">Ostatni pomiar:</string>
+    <string name="dose_label">Dawka:</string>
+    <string name="voltage_label">Napięcie:</string>
+    <string name="battery_content_description">battery</string>
+    <string name="do_you_know">Czy wiesz, że:</string>
+</resources>
