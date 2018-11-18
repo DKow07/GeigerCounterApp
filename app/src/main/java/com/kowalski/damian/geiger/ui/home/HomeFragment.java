@@ -1,8 +1,13 @@
 package com.kowalski.damian.geiger.ui.home;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kowalski.damian.geiger.R;
@@ -10,7 +15,7 @@ import com.kowalski.damian.geiger.model.Curiosity;
 import com.kowalski.damian.geiger.model.Result;
 import com.kowalski.damian.geiger.service.impl.GeigerManager;
 
-public class HomeActivity extends AppCompatActivity implements HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment implements HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private HomeContract.Presenter presenter;
     private SwipeRefreshLayout refreshLayout;
@@ -19,17 +24,18 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private TextView voltage;
     private TextView unitVoltage;
     private TextView curiosityText;
+    private View view;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_home, container, false);
         initWidgets();
         refreshLayout.setOnRefreshListener(this);
         GeigerManager manager = new GeigerManager();
         presenter = new HomePresenter(manager, this);
         onRefresh();
+        return view;
     }
 
     @Override
@@ -65,11 +71,13 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     }
 
     private void initWidgets() {
-        refreshLayout = findViewById(R.id.home_refresh);
-        dose = findViewById(R.id.dose_textview);
-        unitDose = findViewById(R.id.dose_unit_textview);
-        voltage = findViewById(R.id.voltage_textview);
-        unitVoltage = findViewById(R.id.voltage_unit_textview);
-        curiosityText = findViewById(R.id.curiosity);
+        if (view != null) {
+            refreshLayout = view.findViewById(R.id.home_refresh);
+            dose = view.findViewById(R.id.dose_textview);
+            unitDose = view.findViewById(R.id.dose_unit_textview);
+            voltage = view.findViewById(R.id.voltage_textview);
+            unitVoltage = view.findViewById(R.id.voltage_unit_textview);
+            curiosityText = view.findViewById(R.id.curiosity);
+        }
     }
 }
