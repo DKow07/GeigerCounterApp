@@ -9,10 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.kowalski.damian.geiger.R;
 import com.kowalski.damian.geiger.ui.home.HomeFragment;
+import com.kowalski.damian.geiger.ui.results.ResultsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,11 +20,12 @@ public class MainActivity extends AppCompatActivity {
 
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private final Fragment homeFragment = new HomeFragment();
+    private final Fragment resultsFragment = new ResultsFragment();
 
     private Fragment currentFragment;
     private BottomNavigationView bottomNavigationView;
     private FrameLayout frameLayout;
-
+    //map fragment title
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(getString(R.string.home_label));
                     switchFragment(currentFragment);
                     return true;
-                } else if (id == R.id.results_action) {
-                    currentFragment = null;
-                    Toast.makeText(MainActivity.this, "placeholder", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.results_action && currentFragment != resultsFragment) {
+                    currentFragment = resultsFragment;
+                    setTitle(R.string.results_label);
+                    switchFragment(currentFragment);
                     return true;
                 }
                 return false;

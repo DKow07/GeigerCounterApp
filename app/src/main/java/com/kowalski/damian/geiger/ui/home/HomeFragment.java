@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
         initWidgets();
         refreshLayout.setOnRefreshListener(this);
         GeigerManager manager = new GeigerManager();
