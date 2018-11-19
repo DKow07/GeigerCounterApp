@@ -25,8 +25,22 @@ public class GeigerManager implements IGeigerManager {
     }
 
     @Override
-    public void getResults(RequestCallback<List<Result>> callback) {
+    public void getResults(final RequestCallback<List<Result>> callback) {
+        api.getResults().enqueue(new Callback<List<Result>>() {
+            @Override
+            public void onResponse(Call<List<Result>> call, Response<List<Result>> response) {
+                if (response.body() != null) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError(new Throwable());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<List<Result>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
     }
 
     @Override
